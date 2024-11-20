@@ -10,40 +10,40 @@
 <body>
     <div class="container">
         <h1>LED Controller</h1>
-        <div class="toggle">
-            <i id="lightbulb" class="fas fa-lightbulb off" onclick="toggleLed()"></i>
-            <p id="result">LED is OFF</p>
-        </div>
+        <i id="toggle-icon" class="fas fa-toggle-off" onclick="toggleLed()"></i>
+        <p id="result">LED is OFF</p>
     </div>
 
     <script>
-        let isOn = false;
+        let isSwitchOn = false;
 
-        async function toggleLed() {
-            isOn = !isOn;
-
-            // Update the UI
-            const bulb = document.getElementById("lightbulb");
+        function toggleLed() {
+            const icon = document.getElementById("toggle-icon");
             const result = document.getElementById("result");
-            if (isOn) {
-                bulb.classList.remove("off");
-                bulb.classList.add("on");
+
+            isSwitchOn = !isSwitchOn;
+
+            if (isSwitchOn) {
+                icon.classList.remove("fa-toggle-off");
+                icon.classList.add("fa-toggle-on");
+                icon.style.color = "#FFD700"; // Yellow for ON
                 result.textContent = "LED is ON";
             } else {
-                bulb.classList.remove("on");
-                bulb.classList.add("off");
+                icon.classList.remove("fa-toggle-on");
+                icon.classList.add("fa-toggle-off");
+                icon.style.color = "#606060"; // Gray for OFF
                 result.textContent = "LED is OFF";
             }
 
             // Send the command to the server
-            const action = isOn ? "on" : "off";
-            const response = await fetch("/toggle", {
+            const action = isSwitchOn ? "on" : "off";
+            fetch("/toggle", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ action })
-            });
-            const res = await response.json();
-            console.log(res.message);
+                body: JSON.stringify({ action }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data.message));
         }
     </script>
 </body>
