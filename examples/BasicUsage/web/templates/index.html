@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Controller</title>
+</head>
+<body>
+    <h1>LED Controller</h1>
+    <button onclick="toggleLed('on')">Turn LED ON</button>
+    <button onclick="toggleLed('off')">Turn LED OFF</button>
+    <p id="result"></p>
+
+    <script>
+        async function toggleLed(action) {
+            const response = await fetch("/toggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action })
+            });
+            const result = await response.json();
+            document.getElementById("result").textContent = result.message;
+        }
+    </script>
+</body>
+</html>
