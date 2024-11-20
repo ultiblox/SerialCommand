@@ -13,28 +13,56 @@ Core features:
 
 ---
 
-## Quick Start
+## Installation
 
-### Installation
-Run the installation script to set up the library:
-```bash
-bash install.sh
-```
+### Option 1: Arduino Library Manager Installation (Recommended)
 
-For development use:
-```bash
-bash install-symlink.sh
-```
+1. Open the **Arduino IDE**.
+2. Go to **Tools > Manage Libraries**.
+3. Search for **UltiBlox-SerialCommands** and click **Install**.
+4. Access example sketches under **File > Examples > UltiBlox-SerialCommands**.
 
-### Example Sketch
-The `SerialCommands` library comes with example sketches to help you get started.
+### Option 2: Manual Installation (for Development and Customization)
 
-#### Basic Usage
-The `BasicUsage` example demonstrates how to use the library to control an LED via serial commands:
+1. **Clone the Repository**:
+   ```bash
+   git clone git@github.com:UltiBlox/SerialCommands.git ~/workspace/SerialCommands
+   cd ~/workspace/SerialCommands
+   ```
 
-1. Open `examples/BasicUsage/BasicUsage.ino` in the Arduino IDE.
+2. **Prepare the Environment**:
+   Run the `prepare.sh` script to set up dependencies:
+   ```bash
+   bash prepare.sh
+   ```
+
+3. **Install the Library**:
+   - **Copy Installation**:
+     ```bash
+     bash install.sh
+     ```
+   - **Symlink Installation** (for active development):
+     ```bash
+     bash install-symlink.sh
+     ```
+
+4. **Build Examples**:
+   Compile example sketches with:
+   ```bash
+   bash build.sh
+   ```
+
+---
+
+## Examples
+
+The library includes several examples to get you started:
+- **BasicUsage**: Demonstrates controlling an LED via serial commands.
+
+To run an example:
+1. Open the example sketch in the Arduino IDE.
 2. Upload it to your Arduino.
-3. Use the Serial Monitor or the included `set_led.py` Python script to send commands.
+3. Use the Serial Monitor or the included `set_led.py` script to send commands.
 
 Example command:
 - `L:1;` turns the LED on.
@@ -42,30 +70,27 @@ Example command:
 
 ---
 
-## API Reference
+## Methods
 
-### Core Methods
-- `void begin(Stream& port)`: Initialize the library with a serial port.
-- `void listen()`: Continuously process incoming serial data.
-- `void onCommand(void (*callback)(char command, int value))`: Register a callback to handle commands.
-
-### How It Works
-1. The `listen()` method reads incoming serial data and parses commands ending with `;`.
-2. The parsed command and its optional value are passed to the user-defined callback.
-
----
-
-## Python Integration
-
-Use the `set_led.py` script to control your Arduino via serial commands:
-```bash
-python set_led.py --value 1
+### Initialize the Library
+```cpp
+void begin(Stream& port)
 ```
+Sets the serial port to be used by the library.
 
-For auto-detection of the Arduino port:
-```bash
-python set_led.py 0
+### Listen for Commands
+```cpp
+void listen()
 ```
+Processes incoming serial data and parses commands ending with `;`.
+
+### Register Command Callback
+```cpp
+void onCommand(void (*callback)(char command, int value))
+```
+Registers a user-defined callback to handle commands. The callback receives:
+- `command`: The command character.
+- `value`: The parsed value, or `-1` if no value is provided.
 
 ---
 
