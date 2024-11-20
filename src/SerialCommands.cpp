@@ -1,12 +1,12 @@
-#include "SerialCommand.h"
+#include "SerialCommands.h"
 
-SerialCommand::SerialCommand() : serialPort(nullptr), buffer(""), commandCallback(nullptr) {}
+SerialCommands::SerialCommands() : serialPort(nullptr), buffer(""), commandCallback(nullptr) {}
 
-void SerialCommand::begin(Stream& port) {
+void SerialCommands::begin(Stream& port) {
     this->serialPort = &port;
 }
 
-void SerialCommand::listen() {
+void SerialCommands::listen() {
     if (!serialPort) return;
 
     while (serialPort->available()) {
@@ -23,11 +23,11 @@ void SerialCommand::listen() {
     }
 }
 
-void SerialCommand::onCommand(void (*callback)(char command, int value)) {
+void SerialCommands::onCommand(void (*callback)(char command, int value)) {
     commandCallback = callback;
 }
 
-void SerialCommand::processCommand(const String& command) {
+void SerialCommands::processCommand(const String& command) {
     // Remove whitespace and non-printable characters
     String trimmedCommand = command;
     trimmedCommand.trim();
@@ -44,6 +44,6 @@ void SerialCommand::processCommand(const String& command) {
     commandCallback(cmd, value);
 }
 
-bool SerialCommand::isControlCharacter(char c) {
+bool SerialCommands::isControlCharacter(char c) {
     return c == '\n' || c == '\r';
 }

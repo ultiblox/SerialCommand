@@ -1,9 +1,9 @@
-#ifndef _SERIALCOMMAND_H
-#define _SERIALCOMMAND_H
+#ifndef _SerialCommands_H
+#define _SerialCommands_H
 
 #include <Arduino.h>
 
-class SerialCommand {
+class SerialCommands {
 private:
     Stream* serialPort;
     String buffer;
@@ -13,7 +13,7 @@ private:
     bool isControlCharacter(char c);
 
 public:
-    SerialCommand();
+    SerialCommands();
 
     void begin(Stream& port);
     void listen();

@@ -1,6 +1,6 @@
-#include <SerialCommand.h>
+#include <SerialCommands.h>
 
-SerialCommand command;
+SerialCommands command;
 
 void handleCommand(char cmd, int value) {
     Serial.print("Command: ");
@@ -28,7 +28,7 @@ void setup() {
     command.begin(Serial);
     command.onCommand(handleCommand);
 
-    Serial.println("SerialCommand ready. Use L:1; to turn LED on, L:0; to turn it off.");
+    Serial.println("SerialCommands ready. Use L:1; to turn LED on, L:0; to turn it off.");
 }
 
 void loop() {

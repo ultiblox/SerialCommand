@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Define the source path for the SerialCommand library using a relative path
+# Define the source path for the SerialCommands library using a relative path
 LIBRARY_PATH="$PWD"
 
 # Define the target path where the symlink will be created
 # This should be in a 'libraries' directory if adhering to Arduino project structure
-TARGET_PATH="/home/$USER/Arduino/libraries/UltiBlox-SerialCommand"
+TARGET_PATH="/home/$USER/Arduino/libraries/UltiBlox-SerialCommands"
 
 # Ensure the target directory exists
 mkdir -p $(dirname "${TARGET_PATH}")
