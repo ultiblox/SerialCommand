@@ -4,31 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LED Controller</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <div class="container">
         <h1>LED Controller</h1>
-        <div class="buttons">
-            <button onclick="toggleLed('on')">
-                <img src="static/svg/on_button.svg" alt="Turn ON">
-            </button>
-            <button onclick="toggleLed('off')">
-                <img src="static/svg/off_button.svg" alt="Turn OFF">
-            </button>
+        <div class="toggle">
+            <i id="lightbulb" class="fas fa-lightbulb off" onclick="toggleLed()"></i>
+            <p id="result">LED is OFF</p>
         </div>
-        <p id="result">Waiting for input...</p>
     </div>
 
     <script>
-        async function toggleLed(action) {
+        let isOn = false;
+
+        async function toggleLed() {
+            isOn = !isOn;
+
+            // Update the UI
+            const bulb = document.getElementById("lightbulb");
+            const result = document.getElementById("result");
+            if (isOn) {
+                bulb.classList.remove("off");
+                bulb.classList.add("on");
+                result.textContent = "LED is ON";
+            } else {
+                bulb.classList.remove("on");
+                bulb.classList.add("off");
+                result.textContent = "LED is OFF";
+            }
+
+            // Send the command to the server
+            const action = isOn ? "on" : "off";
             const response = await fetch("/toggle", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action })
             });
-            const result = await response.json();
-            document.getElementById("result").textContent = result.message;
+            const res = await response.json();
+            console.log(res.message);
         }
     </script>
 </body>

@@ -16,32 +16,31 @@ h1 {
     margin-bottom: 20px;
 }
 
-.buttons {
+.toggle {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     margin: 20px 0;
 }
 
-button {
-    background: none;
-    border: none;
+#lightbulb {
+    font-size: 100px;
     cursor: pointer;
-    outline: none;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
-button img {
-    width: 150px;
-    height: 150px;
+#lightbulb.on {
+    color: #FFD700; /* Yellow */
+    transform: scale(1.1);
+}
+
+#lightbulb.off {
+    color: #606060; /* Gray */
+    transform: scale(1);
 }
 
 #result {
-    margin-top: 20px;
     font-size: 1.2em;
-    animation: glow 2s infinite;
-}
-
-@keyframes glow {
-    0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff; }
-    100% { text-shadow: 0 0 20px #32CD32, 0 0 30px #228B22; }
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
 }
