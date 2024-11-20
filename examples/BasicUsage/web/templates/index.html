@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LED Controller</title>
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <h1>LED Controller</h1>
-    <button onclick="toggleLed('on')">Turn LED ON</button>
-    <button onclick="toggleLed('off')">Turn LED OFF</button>
-    <p id="result"></p>
+    <div class="container">
+        <h1>LED Controller</h1>
+        <div class="buttons">
+            <button onclick="toggleLed('on')">
+                <img src="static/svg/on_button.svg" alt="Turn ON">
+            </button>
+            <button onclick="toggleLed('off')">
+                <img src="static/svg/off_button.svg" alt="Turn OFF">
+            </button>
+        </div>
+        <p id="result">Waiting for input...</p>
+    </div>
 
     <script>
         async function toggleLed(action) {
